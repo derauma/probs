@@ -22,7 +22,10 @@ class CompoundSpec
   class MCompound(id: Meta[Int], name: Meta[String], value: Meta[Double]) extends Meta[Compound] {
 
     override def gen() = new Compound(id.gen, name.gen, value.gen)
+    
   }
+  
+  implicit def Compound2Literal(c: Compound) = Literal[Compound](c)
 
   class MetaParserCompound extends MetaParserDouble
     with MetaParserIntT {
@@ -79,15 +82,21 @@ class CompoundSpec
       println("Generation of parsed mcompound is '" + rep.gen + "'")
     }
   }
-  val id = Literal[Int](444)
 
-  val name = Choice[String](List(Literal[String]("me"), Literal[String]("you"), Literal[String]("them")))
+  val id = 444
+
+  val name = Choice[String](List("me", "you", "them"))
 
   val value_rep = new RGaussian(0, 1)
 
   "Literal Compound" should "be created" in {
 
-    val lit = Literal[Compound](Compound(0, "none", 0))
+    val lit = Literal[Compound](Compound(0, "literal compound", 0))
+  }
+
+  "Literal Compound" should "be created implicitly" in {
+
+    val lit: Literal[Compound] = Compound(0, "implicit literal compound", 0)
   }
 
   "MCompound" should "generate compounds" in {
@@ -101,7 +110,7 @@ class CompoundSpec
 
   "MCompound" should "have value greater than 1.6 when name='them'" in {
 
-    val id2 = Literal[Int](555)
+    val id2 = 555
     val comp_rep = new MCompound(id2, name, value_rep)
 
     def cond(c: Compound) = { if (c.name == "them") (c.value > 1.6) else true }

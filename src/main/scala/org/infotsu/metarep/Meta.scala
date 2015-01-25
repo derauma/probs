@@ -8,6 +8,12 @@ abstract class Meta[T] {
 }
 
 
+case class Literal[T](t: T) extends Meta[T] {
+
+  override def gen() = t
+}
+
+
 case class Choice[T](metas: List[Meta[T]]) extends Meta[T] {
   
   assert(metas.nonEmpty)
@@ -63,6 +69,14 @@ object Meta	{
       case None => throw new UnknownRefException(ref)
     }
   }
+      
+  implicit def Int2Literal(t: Int) = Literal[Int](t)
+  implicit def String2Literal(t: String) = Literal[String](t)
+  implicit def Float2Literal(t: Float) = Literal[Float](t)
+  implicit def Double2Literal(t: Double) = Literal[Double](t)
+
+
+  
 }
 
 class MaxRetriesException extends Exception;

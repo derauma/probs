@@ -16,18 +16,15 @@ class NumericSpec
   
   "Float choice" should "instantiate three literal choices" in {
     
-    val literal_choice = Choice[Float](List(Literal[Float](1.1f),
-        Literal[Float](2.2f),Literal[Float](3.3f)))
+    val literal_choice = Choice[Float](List(1.1f,2.2f,3.3f))
     val choice = literal_choice.gen
   }
 
   "Float Choice" should "instantiate a tree of choices" in {
 
-    val choice3 = Choice[Float](List(Literal[Float](1.1f),
-      Literal[Float](2.2f), Literal[Float](3.3f)))
+    val choice3 = Choice[Float](List(1.1f,2.2f,3.3f))
 
-    val literal = Literal[Float](4.4f)
-    val choice_top = Choice[Float](List(literal, choice3))
+    val choice_top = Choice[Float](List(4.4f, choice3))
     val choice = choice_top.gen
     println("Choice is " + choice)
   }
@@ -76,7 +73,7 @@ class NumericSpec
     for ( i <- Range(0,5) ) print(geom.gen+" ")
   }
     
-  "Op plus" should "add two doubles" in {
+  "Op plus" should "add two Literal Doubles" in {
     
     val d1 = Literal[Double](1)
     val d2 = Literal[Double](1)
@@ -86,17 +83,12 @@ class NumericSpec
     val plus_rep = new Op[Double](plus_double,List(d1,d2))
     assert(plus_rep.gen()==2.0)
   }
-  
+
   "Op max" should "return the max value in a list" in {
-    
-    val d1 = Literal[Double](2)
-    val d2 = Literal[Double](1)
-    val d3 = Literal[Double](3)
-    val d4 = Literal[Double](2.5)
     
     def max_double(t1: Double, t2: Double) = { if (t1 > t2) t1 else t2 }
 
-    val max_rep = new Op[Double](max_double,List(d1,d2,d3,d4))
-    assert(max_rep.gen()==3)
+    val max_rep = new Op[Double](max_double,List(2,4.444,3,2.5))
+    assert(max_rep.gen()==4.444)
   }
 }
