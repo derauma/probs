@@ -21,7 +21,7 @@ case class Choice[T](metas: List[Meta[T]]) extends Meta[T] {
   override def gen() = { metas(Meta.ran.nextInt(metas.length)).gen() }
 }
 
-class Op[T](f: (T,T) => T,metas: List[Meta[T]]) extends Meta[T] {
+case class Op[T](f: (T,T) => T,metas: List[Meta[T]]) extends Meta[T] {
   
   assert(metas.nonEmpty)
 
@@ -32,7 +32,7 @@ class Op[T](f: (T,T) => T,metas: List[Meta[T]]) extends Meta[T] {
 }
 
 
-class Condition[T](meta: Meta[T], f: (T => Boolean)) extends Meta[T] {
+case class Condition[T](meta: Meta[T], f: (T => Boolean)) extends Meta[T] {
   
   override def gen() = {
     var tries = Meta.tries
