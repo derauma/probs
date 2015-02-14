@@ -70,13 +70,7 @@ object Meta	{
     }
   }
       
-  implicit def Int2Literal(t: Int) = Literal[Int](t)
-  implicit def String2Literal(t: String) = Literal[String](t)
-  implicit def Float2Literal(t: Float) = Literal[Float](t)
-  implicit def Double2Literal(t: Double) = Literal[Double](t)
-
-
-  
+  implicit def Any2Literal[T](t: T) = Literal[T](t)
 }
 
 class MaxRetriesException extends Exception;

@@ -25,8 +25,6 @@ class CompoundSpec
     
   }
   
-  implicit def Compound2Literal(c: Compound) = Literal[Compound](c)
-
   class MetaParserCompound extends MetaParserDouble
     with MetaParserIntT {
 
