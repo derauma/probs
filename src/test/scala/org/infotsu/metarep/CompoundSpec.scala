@@ -50,8 +50,8 @@ class CompoundSpec
 
         case Success(meta, _) => meta
         case Failure(msg, _) =>
-          println("Failed parsing '" + text + "': " + msg); throw new ParseException(msg)
-        case Error(msg, _) => println("Error parsing '" + text + "': " + msg); throw new ParseException(msg)
+          info("Failed parsing '" + text + "': " + msg); throw new ParseException(msg)
+        case Error(msg, _) => info("Error parsing '" + text + "': " + msg); throw new ParseException(msg)
       }
     }
   }
@@ -62,14 +62,14 @@ class CompoundSpec
 
 
     val rep = parser("21 my_name1 45.667")
-    println("Generation of parsed literal compound is '" + rep.gen + "'")
+    info("Generation of parsed literal compound is '" + rep.gen + "'")
   }
 
   "MetaParserCompound" should "parse an mcompound with operators and choices" in {
 
     val rep = parser("(22 my_name2 4.5 + (6 | 38) | [1 fixed 2.222])")
     for (x <- Range(1, 10)) {
-      println("Generation of parsed mcompound is '" + rep.gen + "'")
+      info("Generation of parsed mcompound is '" + rep.gen + "'")
     }
   }
 
@@ -77,7 +77,7 @@ class CompoundSpec
 
     val rep = parser("23 my_name3 48 + normal(0,0.3)")
     for (x <- Range(1, 10)) {
-      println("Generation of parsed mcompound is '" + rep.gen + "'")
+      info("Generation of parsed mcompound is '" + rep.gen + "'")
     }
   }
 
@@ -102,7 +102,7 @@ class CompoundSpec
     val comp_rep = MCompound(id, name, value_rep)
 
     for (x <- Range(1, 10)) {
-      println(comp_rep.gen())
+      info(comp_rep.gen.toString)
     }
   }
 
@@ -119,7 +119,7 @@ class CompoundSpec
 
       val gen = cond_rep.gen
       assert(cond(gen))
-      println(gen)
+      info(gen.toString)
     }
   }
 }

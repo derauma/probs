@@ -1,9 +1,7 @@
 package org.infotsu.metarep
 
-import org.junit.runner.RunWith
 import org.scalatest.FlatSpec
 import org.scalatest.Matchers
-import org.scalatest.junit.JUnitRunner
 
 class MetaParserSpec
   extends FlatSpec with Matchers {
@@ -15,14 +13,14 @@ class MetaParserSpec
 
     val rep = parser_dbl.parse("3.14159")
     val res = rep.gen()
-    assert(res == 3.14159)
+    res shouldEqual(3.14159)
   }
 
   "MetaParser" should "calculate the sum of 3 + 4" in {
 
     val rep = parser_dbl.parse("3 + 4")
     val res = rep.gen()
-    assert(res == 7)
+    res shouldEqual(7)
   }
 
   "MetaParser" should "return a complex Choice" in {
@@ -40,13 +38,13 @@ class MetaParserSpec
   "MetaParser" should "give multiplication precedence over addition 1" in {
 
     val rep = parser_dbl.parse("1 + 2 * 2")
-    assert(rep.gen() == 5)
+    rep.gen should equal (5)
   }
 
   "MetaParser" should "give multiplication precedence over addition 2" in {
 
     val rep = parser_dbl.parse("1 * 2 + 2")
-    assert(rep.gen() == 4)
+    rep.gen should equal (4)
   }
 
   "MetaParser" should "generate uniform randoms from 45.555 to 48.999" in {
@@ -55,8 +53,9 @@ class MetaParserSpec
     var res_prev = 0.0
     for (x <- Range(1, 50)) {
       val res = rep.gen
-      assert(res != res_prev)
-      assert(res >= 45.555); assert(res < 48.999)
+      res should not equal res_prev
+      res should be >= 45.555
+      res should be < 48.999
       res_prev = res
     }
   }
@@ -66,8 +65,8 @@ class MetaParserSpec
     var res_prev = 0.0
     for (x <- Range(1, 50)) {
       val res = rep.gen
-      assert(res != res_prev)
-      //println("gaussian(10,1) is "+res)
+      res should not equal res_prev
+      //info("gaussian(10,1) is "+res)
       res_prev = res
     }
   }
@@ -77,8 +76,8 @@ class MetaParserSpec
     var res_prev = 0.0
     for (x <- Range(1, 50)) {
       val res = rep.gen
-      assert(res != res_prev)
-      println("exp(1.1) is " + res)
+      res should not equal res_prev
+      //info("exp(1.1) is " + res)
       res_prev = res
     }
   }
@@ -89,8 +88,7 @@ class MetaParserSpec
     var res_prev = 0.0
     for (x <- Range(1, 50)) {
       val res = rep.gen
-      //assert(res != res_prev)
-      println("binom(5,0.2) is " + res)
+      //info("binom(5,0.2) is " + res)
       res_prev = res
     }
   }
@@ -101,8 +99,7 @@ class MetaParserSpec
     var res_prev = 0.0
     for (x <- Range(1, 50)) {
       val res = rep.gen
-      //assert(res != res_prev)
-      println("poisson(38) is " + res)
+      //info("poisson(38) is " + res)
       res_prev = res
     }
   }
@@ -113,8 +110,7 @@ class MetaParserSpec
     var res_prev = 0.0
     for (x <- Range(1, 50)) {
       val res = rep.gen
-      //assert(res != res_prev)
-      println("geom(0.05) is " + res)
+      //info("geom(0.05) is " + res)
       res_prev = res
     }
   }
