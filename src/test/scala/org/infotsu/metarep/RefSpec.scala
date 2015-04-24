@@ -26,4 +26,11 @@ class RefSpec
     assert(ref3.gen()==45f)
   }
 
+  "Shared Double" should "pass its generated value to refs" in {
+    
+    val sender = Shared[Double](Literal[Double](1.111),"shared_name1")
+    val receiver = LiteralRef[Double]("shared_name1")
+    sender.gen() should equal (1.111)
+    receiver.gen() should equal (1.111)
+  }
 }
