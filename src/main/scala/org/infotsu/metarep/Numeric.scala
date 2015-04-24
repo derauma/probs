@@ -15,11 +15,11 @@ case class MDouble2Int(md: Meta[Double]) extends Meta[Int] {
 
  // continuous distributions
 
-case class RUniform(min: Double, max: Double) extends Meta[Double] {
+case class RUniform(min: Meta[Double], max: Meta[Double]) extends Meta[Double] {
   
-  val uniform = new Uniform(min,max)
-  override def gen = uniform.draw()
+  override def gen = Uniform(min.gen,max.gen).draw()
 }
+
 import breeze.stats.distributions.Binomial
 
 case class RGaussian(mu: Double, sigma: Double) extends Meta[Double] {

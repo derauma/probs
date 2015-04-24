@@ -45,6 +45,18 @@ class NumericSpec
       gen1 should be < 10.0
     }
   }
+  
+  "Double Dynamic Uniform" should "return a uniform sample from a variable min of 1 to 5 to a variable max of 10 to 20" in {
+    
+    val var_uniform = RUniform(RUniform(1,5),RUniform(10,20))
+    info("Uniform sample: ")
+    for (i <- Range(0, 5)) {
+      val gen1 = var_uniform.gen
+      info(gen1 + " ")
+      gen1 should be >= 1.0
+      gen1 should be < 20.0
+    }
+  }
 
   "Double Gaussian" should "return a gaussian sample with mean 10 and stdev 5" in {
 
