@@ -1,11 +1,8 @@
 package org.infotsu.metarep
 
-import org.junit.runner.RunWith
 import org.scalatest.FlatSpec
 import org.scalatest.Matchers
-import org.scalatest.junit.JUnitRunner
 import scala.collection.immutable.Range
-import org.hamcrest.core.IsInstanceOf
 
 class CompoundSpec
   extends FlatSpec with Matchers {
@@ -22,9 +19,9 @@ class CompoundSpec
   case class MCompound(id: Meta[Int], name: Meta[String], value: Meta[Double]) extends Meta[Compound] {
 
     override def gen() = Compound(id.gen, name.gen, value.gen)
-    
+
   }
-  
+
   class MetaParserCompound extends MetaParserDouble
     with MetaParserIntT {
 
