@@ -1,8 +1,6 @@
 # Created by https://www.gitignore.io/api/sbt,scala
 
 ### SBT ###
-# Simple Build Tool
-# http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
 
 dist/*
 target/
@@ -19,3 +17,7 @@ project/plugins/project/
 *.log
 
 # End of https://www.gitignore.io/api/sbt,scala
+
+### IDE ###
+.bloop/
+.metals/
